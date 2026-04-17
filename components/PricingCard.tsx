@@ -14,21 +14,21 @@ interface Plan {
 export default function PricingCard({ plan }: { plan: Plan }) {
   return (
     <div
-      className={`relative rounded-2xl border p-8 flex flex-col ${
+      className={`relative rounded-2xl border p-6 md:p-8 flex flex-col ${
         plan.highlight
           ? "border-brand-500 shadow-lg shadow-brand-100 bg-white"
           : "border-gray-200 bg-white"
       }`}
     >
       {plan.highlight && (
-        <div className="absolute -top-3 left-1/2 -translate-x-1/2">
+        <div className="absolute -top-3 left-1/2 -translate-x-1/2 whitespace-nowrap">
           <span className="bg-brand-600 text-white text-xs font-semibold px-3 py-1 rounded-full">
             Most popular
           </span>
         </div>
       )}
 
-      <div className="mb-6">
+      <div className="mb-5">
         <div className="flex items-center justify-between mb-1">
           <h3 className="text-lg font-bold text-gray-900">{plan.name}</h3>
           <span className="text-xs font-medium bg-gray-100 text-gray-600 px-2 py-0.5 rounded">
@@ -43,7 +43,7 @@ export default function PricingCard({ plan }: { plan: Plan }) {
         <p className="text-sm text-gray-500 mt-2">{plan.description}</p>
       </div>
 
-      <ul className="space-y-3 mb-8 flex-1">
+      <ul className="space-y-3 mb-7 flex-1">
         {plan.features.map((f) => (
           <li key={f} className="flex items-start gap-2 text-sm text-gray-600">
             <svg
