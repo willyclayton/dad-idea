@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FilterDrop — Font Options</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=DM+Sans:wght@400;500;600;700;800&family=DM+Serif+Display&family=Sora:wght@400;500;600;700;800&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { background: #f1f5f9; padding: 40px 20px; }
+
+    .page-title {
+      font-family: 'Inter', sans-serif;
+      font-size: 13px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: .1em;
+      color: #94a3b8;
+      text-align: center;
+      margin-bottom: 48px;
+    }
+
+    .option {
+      background: #fff;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 1px 3px rgba(0,0,0,.08), 0 4px 16px rgba(0,0,0,.05);
+      margin-bottom: 40px;
+      max-width: 900px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .option-label {
+      font-family: 'Inter', sans-serif;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .12em;
+      color: #fff;
+      background: #1e293b;
+      padding: 10px 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .option-label span {
+      background: rgba(255,255,255,.15);
+      padding: 2px 8px;
+      border-radius: 4px;
+    }
+
+    /* ── SHARED LAYOUT STYLES ── */
+    .mock { padding: 0; }
+
+    .nav {
+      padding: 16px 32px;
+      border-bottom: 1px solid #f1f5f9;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .nav-logo { font-size: 18px; font-weight: 800; color: #16a34a; }
+    .nav-links { display: flex; align-items: center; gap: 24px; }
+    .nav-link { font-size: 13px; color: #64748b; font-weight: 500; }
+    .nav-cta {
+      font-size: 13px; font-weight: 600; color: #fff;
+      background: #16a34a; padding: 8px 18px; border-radius: 8px;
+    }
+
+    .hero {
+      padding: 56px 32px 48px;
+      text-align: center;
+      background: linear-gradient(to bottom, #f0fdf4, #fff);
+    }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: #dcfce7; border: 1px solid #bbf7d0;
+      color: #15803d; font-size: 11px; font-weight: 600;
+      padding: 4px 12px; border-radius: 100px; margin-bottom: 24px;
+    }
+    .hero-badge::before {
+      content: ''; width: 6px; height: 6px;
+      border-radius: 50%; background: #22c55e; display: inline-block;
+    }
+    .hero-h1 { font-size: 44px; font-weight: 800; line-height: 1.1; color: #0f172a; margin-bottom: 16px; }
+    .hero-h1 em { font-style: normal; color: #16a34a; }
+    .hero-sub { font-size: 16px; color: #64748b; line-height: 1.6; max-width: 520px; margin: 0 auto 32px; font-weight: 400; }
+    .hero-cta {
+      display: inline-block; background: #16a34a; color: #fff;
+      font-size: 14px; font-weight: 700; padding: 14px 32px; border-radius: 12px;
+    }
+
+    .cards {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 16px; padding: 0 32px 40px;
+    }
+    .card {
+      border: 1px solid #e2e8f0; border-radius: 16px; padding: 24px;
+    }
+    .card.featured { border-color: #22c55e; box-shadow: 0 0 0 3px #dcfce7; }
+    .card-badge {
+      display: inline-block; background: #16a34a; color: #fff;
+      font-size: 10px; font-weight: 700; padding: 2px 8px; border-radius: 100px; margin-bottom: 12px;
+    }
+    .card-name { font-size: 15px; font-weight: 700; color: #0f172a; margin-bottom: 2px; }
+    .card-interval { font-size: 11px; color: #94a3b8; margin-bottom: 12px; }
+    .card-price { font-size: 32px; font-weight: 800; color: #0f172a; }
+    .card-price sup { font-size: 16px; vertical-align: top; margin-top: 6px; display: inline-block; font-weight: 600; }
+    .card-price sub { font-size: 12px; color: #94a3b8; font-weight: 400; }
+    .card-desc { font-size: 12px; color: #64748b; margin-top: 8px; line-height: 1.5; }
+
+    /* ── FONT OVERRIDES per option ── */
+
+    /* 1. Inter — clean SaaS baseline */
+    .font-inter * { font-family: 'Inter', sans-serif; }
+
+    /* 2. Plus Jakarta Sans — rounded, premium consumer */
+    .font-jakarta * { font-family: 'Plus Jakarta Sans', sans-serif; }
+
+    /* 3. DM Serif Display headings + DM Sans body — editorial, trustworthy */
+    .font-dm * { font-family: 'DM Sans', sans-serif; }
+    .font-dm .hero-h1,
+    .font-dm .nav-logo,
+    .font-dm .card-price { font-family: 'DM Serif Display', serif; font-weight: 400; font-style: normal; }
+    .font-dm .hero-h1 { font-size: 48px; line-height: 1.05; }
+    .font-dm .card-price { font-size: 34px; }
+
+    /* 4. Sora — geometric, modern, tech-forward */
+    .font-sora * { font-family: 'Sora', sans-serif; }
+
+    /* 5. Manrope — humanist, warm, approachable */
+    .font-manrope * { font-family: 'Manrope', sans-serif; }
+  </style>
+</head>
+<body>
+
+  <p class="page-title">FilterDrop — 5 Font Options — Pick one</p>
+
+  <!-- ── OPTION 1: Inter ── -->
+  <div class="option">
+    <div class="option-label">Option 1 <span>Inter</span> — Clean SaaS. The current font. Neutral, readable, everywhere.</div>
+    <div class="mock font-inter">
+      <div class="nav">
+        <div class="nav-logo">FilterDrop</div>
+        <div class="nav-links">
+          <span class="nav-link">How it works</span>
+          <span class="nav-link">Pricing</span>
+          <span class="nav-cta">Get started</span>
+        </div>
+      </div>
+      <div class="hero">
+        <div class="hero-badge">Auto-sized to your AC unit</div>
+        <h1 class="hero-h1">The right AC filter,<br><em>delivered automatically.</em></h1>
+        <p class="hero-sub">Register your air conditioner once. FilterDrop sends the right filter on your manufacturer's schedule — so you never think about it again.</p>
+        <a class="hero-cta">Register your AC unit</a>
+      </div>
+      <div class="cards">
+        <div class="card">
+          <div class="card-name">Basic</div>
+          <div class="card-interval">Every 90 days · MERV 8</div>
+          <div class="card-price"><sup>$</sup>15<sub>/mo</sub></div>
+          <div class="card-desc">Standard filtration. Great for most homes.</div>
+        </div>
+        <div class="card featured">
+          <div class="card-badge">Most popular</div>
+          <div class="card-name">Standard</div>
+          <div class="card-interval">Every 60 days · MERV 11</div>
+          <div class="card-price"><sup>$</sup>22<sub>/mo</sub></div>
+          <div class="card-desc">Better allergen capture. Recommended for pet owners.</div>
+        </div>
+        <div class="card">
+          <div class="card-name">Premium</div>
+          <div class="card-interval">Every 30 days · MERV 13</div>
+          <div class="card-price"><sup>$</sup>38<sub>/mo</sub></div>
+          <div class="card-desc">Hospital-grade. Best for allergy households.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── OPTION 2: Plus Jakarta Sans ── -->
+  <div class="option">
+    <div class="option-label">Option 2 <span>Plus Jakarta Sans</span> — Rounded, friendly, premium consumer brand feel.</div>
+    <div class="mock font-jakarta">
+      <div class="nav">
+        <div class="nav-logo">FilterDrop</div>
+        <div class="nav-links">
+          <span class="nav-link">How it works</span>
+          <span class="nav-link">Pricing</span>
+          <span class="nav-cta">Get started</span>
+        </div>
+      </div>
+      <div class="hero">
+        <div class="hero-badge">Auto-sized to your AC unit</div>
+        <h1 class="hero-h1">The right AC filter,<br><em>delivered automatically.</em></h1>
+        <p class="hero-sub">Register your air conditioner once. FilterDrop sends the right filter on your manufacturer's schedule — so you never think about it again.</p>
+        <a class="hero-cta">Register your AC unit</a>
+      </div>
+      <div class="cards">
+        <div class="card">
+          <div class="card-name">Basic</div>
+          <div class="card-interval">Every 90 days · MERV 8</div>
+          <div class="card-price"><sup>$</sup>15<sub>/mo</sub></div>
+          <div class="card-desc">Standard filtration. Great for most homes.</div>
+        </div>
+        <div class="card featured">
+          <div class="card-badge">Most popular</div>
+          <div class="card-name">Standard</div>
+          <div class="card-interval">Every 60 days · MERV 11</div>
+          <div class="card-price"><sup>$</sup>22<sub>/mo</sub></div>
+          <div class="card-desc">Better allergen capture. Recommended for pet owners.</div>
+        </div>
+        <div class="card">
+          <div class="card-name">Premium</div>
+          <div class="card-interval">Every 30 days · MERV 13</div>
+          <div class="card-price"><sup>$</sup>38<sub>/mo</sub></div>
+          <div class="card-desc">Hospital-grade. Best for allergy households.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── OPTION 3: DM Serif + DM Sans ── -->
+  <div class="option">
+    <div class="option-label">Option 3 <span>DM Serif Display + DM Sans</span> — Serif headings, editorial. Trusted, premium, less "startup".</div>
+    <div class="mock font-dm">
+      <div class="nav">
+        <div class="nav-logo">FilterDrop</div>
+        <div class="nav-links">
+          <span class="nav-link">How it works</span>
+          <span class="nav-link">Pricing</span>
+          <span class="nav-cta">Get started</span>
+        </div>
+      </div>
+      <div class="hero">
+        <div class="hero-badge">Auto-sized to your AC unit</div>
+        <h1 class="hero-h1">The right AC filter,<br><em>delivered automatically.</em></h1>
+        <p class="hero-sub">Register your air conditioner once. FilterDrop sends the right filter on your manufacturer's schedule — so you never think about it again.</p>
+        <a class="hero-cta">Register your AC unit</a>
+      </div>
+      <div class="cards">
+        <div class="card">
+          <div class="card-name">Basic</div>
+          <div class="card-interval">Every 90 days · MERV 8</div>
+          <div class="card-price"><sup>$</sup>15<sub>/mo</sub></div>
+          <div class="card-desc">Standard filtration. Great for most homes.</div>
+        </div>
+        <div class="card featured">
+          <div class="card-badge">Most popular</div>
+          <div class="card-name">Standard</div>
+          <div class="card-interval">Every 60 days · MERV 11</div>
+          <div class="card-price"><sup>$</sup>22<sub>/mo</sub></div>
+          <div class="card-desc">Better allergen capture. Recommended for pet owners.</div>
+        </div>
+        <div class="card">
+          <div class="card-name">Premium</div>
+          <div class="card-interval">Every 30 days · MERV 13</div>
+          <div class="card-price"><sup>$</sup>38<sub>/mo</sub></div>
+          <div class="card-desc">Hospital-grade. Best for allergy households.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── OPTION 4: Sora ── -->
+  <div class="option">
+    <div class="option-label">Option 4 <span>Sora</span> — Geometric, modern, tech-forward. Strong personality.</div>
+    <div class="mock font-sora">
+      <div class="nav">
+        <div class="nav-logo">FilterDrop</div>
+        <div class="nav-links">
+          <span class="nav-link">How it works</span>
+          <span class="nav-link">Pricing</span>
+          <span class="nav-cta">Get started</span>
+        </div>
+      </div>
+      <div class="hero">
+        <div class="hero-badge">Auto-sized to your AC unit</div>
+        <h1 class="hero-h1">The right AC filter,<br><em>delivered automatically.</em></h1>
+        <p class="hero-sub">Register your air conditioner once. FilterDrop sends the right filter on your manufacturer's schedule — so you never think about it again.</p>
+        <a class="hero-cta">Register your AC unit</a>
+      </div>
+      <div class="cards">
+        <div class="card">
+          <div class="card-name">Basic</div>
+          <div class="card-interval">Every 90 days · MERV 8</div>
+          <div class="card-price"><sup>$</sup>15<sub>/mo</sub></div>
+          <div class="card-desc">Standard filtration. Great for most homes.</div>
+        </div>
+        <div class="card featured">
+          <div class="card-badge">Most popular</div>
+          <div class="card-name">Standard</div>
+          <div class="card-interval">Every 60 days · MERV 11</div>
+          <div class="card-price"><sup>$</sup>22<sub>/mo</sub></div>
+          <div class="card-desc">Better allergen capture. Recommended for pet owners.</div>
+        </div>
+        <div class="card">
+          <div class="card-name">Premium</div>
+          <div class="card-interval">Every 30 days · MERV 13</div>
+          <div class="card-price"><sup>$</sup>38<sub>/mo</sub></div>
+          <div class="card-desc">Hospital-grade. Best for allergy households.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── OPTION 5: Manrope ── -->
+  <div class="option">
+    <div class="option-label">Option 5 <span>Manrope</span> — Humanist, warm, approachable. Feels honest and direct.</div>
+    <div class="mock font-manrope">
+      <div class="nav">
+        <div class="nav-logo">FilterDrop</div>
+        <div class="nav-links">
+          <span class="nav-link">How it works</span>
+          <span class="nav-link">Pricing</span>
+          <span class="nav-cta">Get started</span>
+        </div>
+      </div>
+      <div class="hero">
+        <div class="hero-badge">Auto-sized to your AC unit</div>
+        <h1 class="hero-h1">The right AC filter,<br><em>delivered automatically.</em></h1>
+        <p class="hero-sub">Register your air conditioner once. FilterDrop sends the right filter on your manufacturer's schedule — so you never think about it again.</p>
+        <a class="hero-cta">Register your AC unit</a>
+      </div>
+      <div class="cards">
+        <div class="card">
+          <div class="card-name">Basic</div>
+          <div class="card-interval">Every 90 days · MERV 8</div>
+          <div class="card-price"><sup>$</sup>15<sub>/mo</sub></div>
+          <div class="card-desc">Standard filtration. Great for most homes.</div>
+        </div>
+        <div class="card featured">
+          <div class="card-badge">Most popular</div>
+          <div class="card-name">Standard</div>
+          <div class="card-interval">Every 60 days · MERV 11</div>
+          <div class="card-price"><sup>$</sup>22<sub>/mo</sub></div>
+          <div class="card-desc">Better allergen capture. Recommended for pet owners.</div>
+        </div>
+        <div class="card">
+          <div class="card-name">Premium</div>
+          <div class="card-interval">Every 30 days · MERV 13</div>
+          <div class="card-price"><sup>$</sup>38<sub>/mo</sub></div>
+          <div class="card-desc">Hospital-grade. Best for allergy households.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>
