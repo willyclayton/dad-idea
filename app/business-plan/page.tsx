@@ -1,9 +1,21 @@
 import fs from "fs";
 import path from "path";
+import type { ReactNode } from "react";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import Link from "next/link";
 import type { Metadata } from "next";
+
+// Mirrors GitHub's heading anchor algorithm so TOC links work.
+// Key: each space becomes its own hyphen — no collapsing — so
+// "Problem & Opportunity" → "problem--opportunity" (& removed, two spaces remain).
+function slugify(text: ReactNode): string {
+  return String(text)
+    .toLowerCase()
+    .replace(/[^\w\s-]/g, "") // strip punctuation, keep word chars / spaces / hyphens
+    .replace(/\s/g, "-")      // each individual space → hyphen (no collapsing)
+    .trim();
+}
 
 export const metadata: Metadata = {
   title: "Business Plan — FilterDrop",
@@ -35,16 +47,16 @@ export default function BusinessPlanPage() {
           remarkPlugins={[remarkGfm]}
           components={{
             h1: ({ children }) => (
-              <h1 className="text-3xl md:text-4xl font-black text-gray-900 mb-4 mt-0">{children}</h1>
+              <h1 id={slugify(children)} className="text-3xl md:text-4xl font-black text-gray-900 mb-4 mt-0 scroll-mt-20">{children}</h1>
             ),
             h2: ({ children }) => (
-              <h2 className="text-2xl font-bold text-gray-900 mt-12 mb-4 pb-2 border-b border-gray-100">{children}</h2>
+              <h2 id={slugify(children)} className="text-2xl font-bold text-gray-900 mt-12 mb-4 pb-2 border-b border-gray-100 scroll-mt-20">{children}</h2>
             ),
             h3: ({ children }) => (
-              <h3 className="text-lg font-semibold text-gray-900 mt-8 mb-3">{children}</h3>
+              <h3 id={slugify(children)} className="text-lg font-semibold text-gray-900 mt-8 mb-3 scroll-mt-20">{children}</h3>
             ),
             h4: ({ children }) => (
-              <h4 className="text-base font-semibold text-gray-700 mt-6 mb-2">{children}</h4>
+              <h4 id={slugify(children)} className="text-base font-semibold text-gray-700 mt-6 mb-2 scroll-mt-20">{children}</h4>
             ),
             p: ({ children }) => (
               <p className="text-gray-600 leading-relaxed mb-4 text-[15px]">{children}</p>
