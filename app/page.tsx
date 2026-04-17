@@ -159,6 +159,7 @@ export default function HomePage() {
             <a href="#" className="hover:text-white">Privacy</a>
             <a href="#" className="hover:text-white">Terms</a>
             <a href="mailto:hello@filterdrop.com" className="hover:text-white">Contact</a>
+            <Link href="/business-plan" className="hover:text-white">Business Plan</Link>
           </div>
         </div>
       </footer>
